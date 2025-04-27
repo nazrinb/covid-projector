@@ -13,3 +13,6 @@ An interactive web dashboard built with Streamlit that visualizes COVID-19 case,
 
 Demo:
 ![alt text](image.png)
+
+
+You can visit the website via: https://covid-projector-nb.streamlit.app/
