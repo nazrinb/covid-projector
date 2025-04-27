@@ -43,6 +43,27 @@ st.markdown("""
         background: #283593;
         color: #FFC107;
     }
+    .custom-download-button button {
+        background: linear-gradient(90deg, #3F51B5 0%, #FFC107 100%);
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 0.8em 2.2em;
+        font-size: 1.1em;
+        font-weight: bold;
+        box-shadow: 0 4px 14px 0 rgba(63,81,181,0.10);
+        transition: background 0.2s, color 0.2s, transform 0.1s;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        cursor: pointer;
+        outline: none;
+    }
+    .custom-download-button button:hover {
+        background: linear-gradient(90deg, #283593 0%, #FFD54F 100%);
+        color: #3F51B5;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 24px 0 rgba(63,81,181,0.18);
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -208,18 +229,37 @@ fig.update_layout(
     xaxis_title="Date",
     yaxis_title="Count",
     hovermode="x unified",
-    template="plotly",
-    plot_bgcolor="#F5F7FA",
-    paper_bgcolor="#F5F7FA",
-    font=dict(color="#1B263B"),
+    template="plotly_white",
     height=600,
     showlegend=True,
     legend=dict(
         yanchor="top",
         y=0.99,
         xanchor="left",
-        x=0.01
-    )
+        x=0.01,
+        font=dict(size=16, color="#1B263B")
+    ),
+    font=dict(
+        family="Cinzel, Crimson Text, serif",
+        size=16,
+        color="#1B263B"
+    ),
+    title_font=dict(
+        size=22,
+        color="#3F51B5"
+    ),
+    xaxis=dict(
+        tickangle=-45,
+        tickfont=dict(size=14, color="#1B263B"),
+        title_font=dict(size=18, color="#3F51B5"),
+        nticks=12
+    ),
+    yaxis=dict(
+        tickfont=dict(size=14, color="#1B263B"),
+        title_font=dict(size=18, color="#3F51B5")
+    ),
+    plot_bgcolor="#F5F7FA",
+    paper_bgcolor="#F5F7FA"
 )
 
 st.plotly_chart(fig, use_container_width=True)
@@ -282,9 +322,11 @@ st.markdown("""
 # Download button
 if st.button("Download Data"):
     csv = country_df.to_csv(index=False)
+    st.markdown('<div class="custom-download-button">', unsafe_allow_html=True)
     st.download_button(
-        label="Download CSV",
+        label="⬇️ Download Data as CSV",
         data=csv,
         file_name=f'covid_data_{country}_{datetime.now().strftime("%Y%m%d")}.csv',
         mime='text/csv'
     )
+    st.markdown('</div>', unsafe_allow_html=True)
