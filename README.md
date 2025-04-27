@@ -9,3 +9,7 @@ An interactive web dashboard built with Streamlit that visualizes COVID-19 case,
 - Interactive Plotly charts for exploration.
 - Latest summary statistics for the selected country.
 - Live data — always up to date.
+
+
+Demo:
+![alt text](image.png)
