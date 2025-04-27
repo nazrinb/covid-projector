@@ -16,17 +16,32 @@ st.set_page_config(
 # Custom CSS
 st.markdown("""
     <style>
-    .main {
-        padding: 0rem 1rem;
-    }
     .stApp {
-        background-color: #f5f7f9;
+        background-color: #F5F7FA;
+        color: #1B263B;
     }
     .metric-card {
-        background-color: white;
+        background-color: #fff;
         padding: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        border-radius: 0.75rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(63, 81, 181, 0.08);
+        border-left: 6px solid #3F51B5;
+    }
+    h1, h2, h3, h4 {
+        color: #3F51B5;
+    }
+    .stButton>button {
+        background-color: #3F51B5;
+        color: #fff;
+        border-radius: 25px;
+        border: none;
+        padding: 0.6em 2em;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+    .stButton>button:hover {
+        background: #283593;
+        color: #FFC107;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -111,7 +126,7 @@ with col1:
     st.markdown(
         """
         <div class="metric-card">
-        <h3 style="color: #1e88e5;">Total Cases</h3>
+        <h3 style="color: #3F51B5;">Total Cases</h3>
         <h2>{:,.0f}</h2>
         </div>
         """.format(latest['total_cases'] if pd.notna(latest['total_cases']) else 0),
@@ -122,7 +137,7 @@ with col2:
     st.markdown(
         """
         <div class="metric-card">
-        <h3 style="color: #ff0000;">Total Deaths</h3>
+        <h3 style="color: #E53935;">Total Deaths</h3>
         <h2>{:,.0f}</h2>
         </div>
         """.format(latest['total_deaths'] if pd.notna(latest['total_deaths']) else 0),
@@ -133,7 +148,7 @@ with col3:
     st.markdown(
         """
         <div class="metric-card">
-        <h3 style="color: #4caf50;">Vaccination Rate</h3>
+        <h3 style="color: #43A047;">Vaccination Rate</h3>
         <h2>{:.1f}%</h2>
         </div>
         """.format(latest['vaccination_rate'] if pd.notna(latest['vaccination_rate']) else 0),
@@ -144,7 +159,7 @@ with col4:
     st.markdown(
         """
         <div class="metric-card">
-        <h3 style="color: #ff9800;">Case Fatality Rate</h3>
+        <h3 style="color: #FFC107;">Case Fatality Rate</h3>
         <h2>{:.2f}%</h2>
         </div>
         """.format(latest['case_fatality_rate'] if pd.notna(latest['case_fatality_rate']) else 0),
@@ -158,10 +173,10 @@ st.subheader("📈 Trend Analysis")
 fig = go.Figure()
 
 colors = {
-    "New cases": "#1e88e5",
-    "New deaths": "#ff0000",
-    "New vaccinations": "#4caf50",
-    "Case fatality rate": "#ff9800"
+    "New cases": "#3F51B5",         # Indigo
+    "New deaths": "#E53935",        # Crimson
+    "New vaccinations": "#43A047",  # Emerald
+    "Case fatality rate": "#FFC107" # Amber
 }
 
 for metric in metrics:
@@ -193,7 +208,10 @@ fig.update_layout(
     xaxis_title="Date",
     yaxis_title="Count",
     hovermode="x unified",
-    template="plotly_white",
+    template="plotly",
+    plot_bgcolor="#F5F7FA",
+    paper_bgcolor="#F5F7FA",
+    font=dict(color="#1B263B"),
     height=600,
     showlegend=True,
     legend=dict(
